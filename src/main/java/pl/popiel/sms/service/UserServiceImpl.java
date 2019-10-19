@@ -27,8 +27,8 @@ import static pl.popiel.sms.exception.ExceptionType.ENTITY_NOT_FOUND;
 @Component
 public class UserServiceImpl implements UserService {
 
-//    @Autowired
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
             }
             User newUser = new User();
             newUser.setEmail(userDto.getEmail());
-            newUser.setPassword( userDto.getPassword());
+            newUser.setPassword( bCryptPasswordEncoder.encode(userDto.getPassword()));
             newUser.setRoles(new HashSet<>(Arrays.asList(userRole)));
             newUser.setFirstName(userDto.getFirstName());
             newUser.setLastName(userDto.getLastName());
@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> user = userRepository.findByEmail(userDto.getEmail());
         if (user.isPresent()) {
             User userModel = user.get();
-            userModel.setPassword(newPassword);
+            userModel.setPassword(bCryptPasswordEncoder.encode(newPassword));
             return UserMapper.toUserDto(userRepository.save(userModel));
         }
 
