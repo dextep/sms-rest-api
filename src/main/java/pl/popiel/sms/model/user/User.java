@@ -3,9 +3,6 @@ package pl.popiel.sms.model.user;
 import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
-
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import javax.validation.constraints.Email;
 import java.util.Set;
 
@@ -25,6 +22,7 @@ public class User {
 
     private String lastName;
 
+    @Column(name="mobile_nr")
     private String mobileNumber;
 
     @ElementCollection(targetClass=Role.class)
