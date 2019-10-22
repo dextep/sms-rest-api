@@ -14,7 +14,6 @@ import pl.popiel.sms.repository.user.RoleRepository;
 import pl.popiel.sms.repository.user.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
@@ -36,17 +35,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-//    @Autowired
-//    private BusReservationService busReservationService;
-//
-//    @Autowired
-//    private ModelMapper modelMapper;
-
     @Override
     public UserDto signup(UserDto userDto) throws RuntimeException {
         Role userRole;
-        Optional<User> user = userRepository.findByEmail(userDto.getEmail());
-        if ( !user.isPresent() ) {
+        User user = userRepository.findByEmail(userDto.getEmail());
+        if ( user == null ) {
             if (userDto.isAdmin()) {
                 userRole = roleRepository.findByRole(UserRoles.ADMIN.name());
             } else {
@@ -54,7 +47,7 @@ public class UserServiceImpl implements UserService {
             }
             User newUser = new User();
             newUser.setEmail(userDto.getEmail());
-            newUser.setPassword( bCryptPasswordEncoder.encode(userDto.getPassword()));
+            newUser.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
             newUser.setRoles(new HashSet<>(Arrays.asList(userRole)));
             newUser.setFirstName(userDto.getFirstName());
             newUser.setLastName(userDto.getLastName());
@@ -64,29 +57,24 @@ public class UserServiceImpl implements UserService {
         throw exception(USER, DUPLICATE_ENTITY, userDto.getEmail());
     }
 
-    /**
-     * Search an existing user
-     *
-     * @param email
-     * @return
-     */
     public UserDto findUserByEmail(String email) {
-        Optional<User> user = userRepository.findByEmail(email);
+        Optional<User> user = Optional.ofNullable(userRepository.findByEmail(email));
         if (user.isPresent()) {
-//            return modelMapper.map(user.get(), UserDto.class);
+            UserDto userDto = new UserDto();
+            userDto.setEmail(user.get().getEmail());
+            userDto.setPassword(user.get().getPassword());
+            userDto.setFirstName(user.get().getFirstName());
+            userDto.setLastName(user.get().getLastName());
+            userDto.setMobileNumber(user.get().getMobileNumber());
+            userDto.setRoles(user.get().getRoles());//new HashSet<>(Arrays.asList(user.get().getRoles()))); //user.get().getRoles().stream().map(Role::getRole).collect(Collectors.toSet()));
+            return userDto;
         }
         throw exception(USER, ENTITY_NOT_FOUND, email);
     }
 
-    /**
-     * Update User Profile
-     *
-     * @param userDto
-     * @return
-     */
     @Override
     public UserDto updateProfile(UserDto userDto) {
-        Optional<User> user = userRepository.findByEmail(userDto.getEmail());
+        Optional<User> user = Optional.ofNullable(userRepository.findByEmail(userDto.getEmail()));
         if (user.isPresent()) {
             User userModel = user.get();
             userModel.setFirstName(userDto.getFirstName());
@@ -97,16 +85,9 @@ public class UserServiceImpl implements UserService {
         throw exception(USER, ENTITY_NOT_FOUND, userDto.getEmail());
     }
 
-    /**
-     * Change Password
-     *
-     * @param userDto
-     * @param newPassword
-     * @return
-     */
     @Override
     public UserDto changePassword(UserDto userDto, String newPassword) {
-        Optional<User> user = userRepository.findByEmail(userDto.getEmail());
+        Optional<User> user = Optional.ofNullable(userRepository.findByEmail(userDto.getEmail()));
         if (user.isPresent()) {
             User userModel = user.get();
             userModel.setPassword(bCryptPasswordEncoder.encode(newPassword));
@@ -116,14 +97,6 @@ public class UserServiceImpl implements UserService {
         throw exception(USER, ENTITY_NOT_FOUND, userDto.getEmail());
     }
 
-    /**
-     * Returns a new RuntimeException
-     *
-     * @param entityType
-     * @param exceptionType
-     * @param args
-     * @return
-     */
     private RuntimeException exception(EntityType entityType, ExceptionType exceptionType, String args) {
         return BRSException.throwException(entityType,exceptionType,args);
     }

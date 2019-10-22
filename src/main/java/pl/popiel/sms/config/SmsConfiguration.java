@@ -9,7 +9,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class SmsConfiguration implements WebMvcConfigurer {
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+    BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }

@@ -2,6 +2,7 @@ package pl.popiel.sms.service;
 
 import org.springframework.stereotype.Service;
 import pl.popiel.sms.dto.model.user.UserDto;
+import pl.popiel.sms.model.user.User;
 
 @Service
 public interface UserService {

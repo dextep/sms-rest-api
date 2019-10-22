@@ -2,6 +2,7 @@ package pl.popiel.sms.dto.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import pl.popiel.sms.model.user.Role;
 
 import javax.persistence.Entity;
 import java.util.Set;
@@ -15,7 +16,7 @@ public class UserDto {
     private String lastName;
     private String mobileNumber;
     private boolean isAdmin;
-    private Set<RoleDto> roles;
+    private Set<Role> roles;
 
     public String getFullName() {
         return firstName != null ? firstName.concat(" ").concat(lastName) : "";
@@ -72,11 +73,11 @@ public class UserDto {
         isAdmin = admin;
     }
 
-    public Set<RoleDto> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<RoleDto> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 }

@@ -7,13 +7,15 @@ import javax.validation.constraints.Email;
 import java.util.Set;
 
 @Entity
-@Table(name="user")
+@Table(name="sms_users")
+@SequenceGenerator(name = "sms_users_seq", sequenceName = "sms_users_seq", allocationSize = 1)
 public class User {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sms_users_seq")
     private long id;
 
     @Email
-    @UniqueElements
     private String email;
 
     private String password;
@@ -25,7 +27,7 @@ public class User {
     @Column(name="mobile_nr")
     private String mobileNumber;
 
-    @ElementCollection(targetClass=Role.class)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
     public String getFullName() {

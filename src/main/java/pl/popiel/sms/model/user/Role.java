@@ -1,19 +1,19 @@
 package pl.popiel.sms.model.user;
 
 import org.hibernate.validator.constraints.UniqueElements;
+import org.springframework.stereotype.Indexed;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name="sms_role")
+@Table(name="sms_roles")
+@SequenceGenerator(name = "sms_roles_seq", sequenceName = "sms_roles_seq", allocationSize = 1)
 public class Role {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sms_roles_seq")
     private long id;
 
-    @UniqueElements
     private String role;
 
     public Role() {

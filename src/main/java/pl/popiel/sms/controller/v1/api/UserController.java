@@ -1,11 +1,14 @@
 package pl.popiel.sms.controller.v1.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.popiel.sms.controller.v1.request.UserSignupRequest;
 import pl.popiel.sms.dto.model.user.UserDto;
 import pl.popiel.sms.dto.response.Response;
+import pl.popiel.sms.model.user.User;
 import pl.popiel.sms.service.UserService;
+import pl.popiel.sms.service.UserServiceImpl;
 
 import javax.validation.Valid;
 
@@ -13,25 +16,19 @@ import javax.validation.Valid;
 @RequestMapping("/api/v1/user")
 public class UserController {
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
-    /**
-     * Handles the incoming POST API "/v1/user/signup"
-     *
-     * @param userSignupRequest
-     * @return
-     */
     @PostMapping("/signup")
     public Response signup(@RequestBody @Valid UserSignupRequest userSignupRequest) {
-        return (Response) Response.ok().setPayload(registerUser(userSignupRequest, false));
+        registerUser(userSignupRequest, false);
+        return Response.ok();
     }
 
-    /**
-     * Register a new user in the database
-     *
-     * @param userSignupRequest
-     * @return
-     */
+    @GetMapping("/get/{email}")
+    public UserDto getById(@PathVariable String email){
+        return userService.findUserByEmail(email);
+    }
+
     private UserDto registerUser(UserSignupRequest userSignupRequest, boolean isAdmin) {
         UserDto userDto = new UserDto();
         userDto.setEmail(userSignupRequest.getEmail());
