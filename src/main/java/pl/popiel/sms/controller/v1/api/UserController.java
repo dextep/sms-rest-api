@@ -12,6 +12,7 @@ import pl.popiel.sms.service.UserServiceImpl;
 
 import javax.validation.Valid;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1/user")
 public class UserController {
