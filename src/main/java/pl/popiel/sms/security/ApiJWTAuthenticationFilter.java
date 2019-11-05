@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.util.JSONPObject;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.json.JSONObject;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import static pl.popiel.sms.security.SecurityConstants.*;
@@ -68,7 +70,8 @@ public class ApiJWTAuthenticationFilter extends UsernamePasswordAuthenticationFi
                         .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                         .signWith(SignatureAlgorithm.HS512, SECRET)
                         .compact();
-                res.getWriter().write(token);
+                res.setContentType("application/json");
+                res.getWriter().write("{\"JwtToken\": \""+token+"\"}");
             }
         }
     }
