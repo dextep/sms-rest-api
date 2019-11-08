@@ -6,6 +6,7 @@ import pl.popiel.sms.model.user.Role;
 
 import javax.persistence.Entity;
 import java.util.Set;
+import java.util.Date;
 
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -17,6 +18,9 @@ public class UserDto {
     private String mobileNumber;
     private boolean isAdmin;
     private Set<Role> roles;
+    private Date birthday;
+
+
 
     public String getFullName() {
         return firstName != null ? firstName.concat(" ").concat(lastName) : "";
@@ -79,5 +83,13 @@ public class UserDto {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 }

@@ -15,6 +15,7 @@ import pl.popiel.sms.repository.user.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Optional;
 
@@ -52,6 +53,8 @@ public class UserServiceImpl implements UserService {
             newUser.setFirstName(userDto.getFirstName());
             newUser.setLastName(userDto.getLastName());
             newUser.setMobileNumber(userDto.getMobileNumber());
+            newUser.setBirthday(userDto.getBirthday());
+            newUser.setCreationDate(new Date());
             return UserMapper.toUserDto(userRepository.save(newUser));
         }
         throw exception(USER, DUPLICATE_ENTITY, userDto.getEmail());

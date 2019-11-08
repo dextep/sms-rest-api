@@ -3,6 +3,9 @@ package pl.popiel.sms.controller.v1.request;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.validation.constraints.NotEmpty;
+import javax.xml.crypto.Data;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserSignupRequest {
@@ -18,7 +21,11 @@ public class UserSignupRequest {
     @NotEmpty(message = "{constraints.NotEmpty.message}")
     private String lastName;
 
+    @NotEmpty(message = "{constraints.NotEmpty.message}")
     private String mobileNumber;
+
+    @NotEmpty(message = "{constraints.NotEmpty.message}")
+    private String birthday;
 
     public UserSignupRequest() {
     }
@@ -62,4 +69,13 @@ public class UserSignupRequest {
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
+
+    public String getBirthday() {
+        return this.birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
 }

@@ -11,6 +11,10 @@ import pl.popiel.sms.service.UserService;
 import pl.popiel.sms.service.UserServiceImpl;
 
 import javax.validation.Valid;
+import javax.xml.crypto.Data;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @CrossOrigin
 @RestController
@@ -37,6 +41,11 @@ public class UserController {
         userDto.setFirstName(userSignupRequest.getFirstName());
         userDto.setLastName(userSignupRequest.getLastName());
         userDto.setMobileNumber(userSignupRequest.getMobileNumber());
+        try {
+            userDto.setBirthday(new SimpleDateFormat("yyyy-MM-dd").parse(userSignupRequest.getBirthday()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         userDto.setAdmin(isAdmin);
 
         return userService.signup(userDto);

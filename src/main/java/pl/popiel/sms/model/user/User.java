@@ -4,7 +4,9 @@ import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.util.Date;
 import java.util.Set;
+
 
 @Entity
 @Table(name="sms_users")
@@ -29,6 +31,10 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
+
+    private Date birthday;
+
+    private Date creationDate;
 
     public String getFullName() {
         return firstName != null ? firstName.concat(" ").concat(lastName) : "";
@@ -91,5 +97,23 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 }
