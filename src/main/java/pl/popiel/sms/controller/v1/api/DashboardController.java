@@ -14,7 +14,6 @@ import pl.popiel.sms.service.UserService;
 
 import javax.validation.Valid;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/")
 public class DashboardController {
@@ -51,4 +50,5 @@ public class DashboardController {
         }
         return userDto;
     }
+
 }

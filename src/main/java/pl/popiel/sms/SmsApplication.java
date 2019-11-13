@@ -12,12 +12,15 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import pl.popiel.sms.model.event.Event;
 import pl.popiel.sms.model.user.Role;
 import pl.popiel.sms.model.user.User;
+import pl.popiel.sms.repository.user.EventRepository;
 import pl.popiel.sms.repository.user.RoleRepository;
 import pl.popiel.sms.repository.user.UserRepository;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Optional;
 
@@ -40,7 +43,7 @@ public class SmsApplication {
     }
 
     @Bean
-    CommandLineRunner init(RoleRepository roleRepository, UserRepository userRepository) {
+    CommandLineRunner init(RoleRepository roleRepository, UserRepository userRepository, EventRepository eventRepository) {
         return args -> {
             //Create Admin and Passenger Roles
             Role adminRole = roleRepository.findByRole("ADMIN");
@@ -62,13 +65,21 @@ public class SmsApplication {
             if ( adminUser == null) {
                 User admin = new User();
                 admin.setEmail("admin@gmail.com");
-                admin.setPassword("$2y$12$sBofVIeLeT0m5dV9hBieIukQvjpb9GzRo5Q/xRTK7Ya7Dx.Lpiq4G"); // "123456"
+                admin.setPassword("$2y$12$mnmbE42x8XCNa8/fScbQe.Ua0yzOUXXq28SQ96rTpSrIgLPvawiaG"); // "admin"
                 admin.setFirstName("John");
                 admin.setLastName("Doe");
                 admin.setMobileNumber("9425094250");
                 admin.setRoles(new HashSet<>(Arrays.asList(adminRole)));
                 userRepository.save(admin);
             }
+
+            Event event = new Event();
+            event.setType("bieganie 🏃🏼‍♂️");
+            event.setDescription("description test");
+            event.setCreationDate(new Date());
+            event.setLongitude(50.128544);
+            event.setLatitude(19.9131136);
+            eventRepository.save(event);
         };
     }
 }

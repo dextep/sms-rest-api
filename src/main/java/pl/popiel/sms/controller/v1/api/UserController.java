@@ -16,15 +16,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/api/v1/user")
 public class UserController {
+
     @Autowired
     private UserServiceImpl userService;
 
     @PostMapping("/signup")
-    public Response signup(@RequestBody @Valid UserSignupRequest userSignupRequest) {
+    public Response signup(@RequestBody UserSignupRequest userSignupRequest) {
         registerUser(userSignupRequest, false);
         return Response.ok();
     }
@@ -35,6 +35,7 @@ public class UserController {
     }
 
     private UserDto registerUser(UserSignupRequest userSignupRequest, boolean isAdmin) {
+        System.out.println(userSignupRequest);
         UserDto userDto = new UserDto();
         userDto.setEmail(userSignupRequest.getEmail());
         userDto.setPassword(userSignupRequest.getPassword());

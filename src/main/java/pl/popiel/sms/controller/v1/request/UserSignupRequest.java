@@ -21,7 +21,6 @@ public class UserSignupRequest {
     @NotEmpty(message = "{constraints.NotEmpty.message}")
     private String lastName;
 
-    @NotEmpty(message = "{constraints.NotEmpty.message}")
     private String mobileNumber;
 
     @NotEmpty(message = "{constraints.NotEmpty.message}")
