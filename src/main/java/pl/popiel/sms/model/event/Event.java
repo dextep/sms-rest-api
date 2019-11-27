@@ -21,10 +21,12 @@ public class Event {
     @ManyToOne
     private User user;
 
-    @ManyToOne
-    private User partner;
+    @ManyToMany
+    private Set<User> partner;
+
     private String type;
     private String description;
+    private int seatsNumber;
     @NotNull
     private double latitude;
     @NotNull
@@ -57,11 +59,11 @@ public class Event {
         this.user = user;
     }
 
-    public User getPartner() {
+    public Set<User> getPartner() {
         return partner;
     }
 
-    public void setPartner(User partner) {
+    public void setPartner(Set<User> partner) {
         this.partner = partner;
     }
 
@@ -115,5 +117,14 @@ public class Event {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+
+    public int getSeatsNumber() {
+        return seatsNumber;
+    }
+
+    public void setSeatsNumber(int seatsNumber) {
+        this.seatsNumber = seatsNumber;
     }
 }

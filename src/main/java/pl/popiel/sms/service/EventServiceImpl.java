@@ -32,6 +32,7 @@ public class EventServiceImpl implements EventService {
             newEvent.setPartner(event.getPartner());
             newEvent.setCreationDate(new Date());
             newEvent.setDescription(event.getDescription());
+            newEvent.setSeatsNumber(event.getSeatsNumber());
             newEvent.setExperience(event.getExperience());
             newEvent.setLatitude(event.getLatitude());
             newEvent.setLongitude(event.getLongitude());

@@ -73,12 +73,27 @@ public class SmsApplication {
                 userRepository.save(admin);
             }
 
+            User newUser = userRepository.findByEmail("user@gmail.com");
+            if ( newUser == null) {
+                User user = new User();
+                user.setEmail("user@gmail.com");
+                user.setPassword("$2y$12$mnmbE42x8XCNa8/fScbQe.Ua0yzOUXXq28SQ96rTpSrIgLPvawiaG"); // "admin"
+                user.setFirstName("Grzegorz");
+                user.setLastName("Popiel");
+                user.setMobileNumber("992881772");
+                user.setRoles(new HashSet<>(Arrays.asList(adminRole)));
+                userRepository.save(user);
+            }
+
             Event event = new Event();
             event.setType("bieganie 🏃🏼‍♂️");
             event.setDescription("description test");
+            User eventUser = new User();
+            eventUser.setId(2);
+            event.setUser(eventUser);
             event.setCreationDate(new Date());
-            event.setLongitude(50.128544);
-            event.setLatitude(19.9131136);
+            event.setLongitude(19.914377);
+            event.setLatitude(50.028783);
             eventRepository.save(event);
         };
     }
