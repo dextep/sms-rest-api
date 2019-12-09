@@ -3,6 +3,7 @@ package pl.popiel.sms.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -39,12 +40,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 //        http.authorizeRequests().antMatchers("/**").authenticated()
 ////                .antMatchers("/test3").hasRole("ADMIN")
-//
-//
-//                .and().exceptionHandling()
-//                .authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED))
-//                .and()
-//                .addFilter(new ApiJWTAuthenticationFilter(authenticationManager()));
         http
                 .httpBasic()
                 .and()
@@ -54,8 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .antMatcher("/**")
                 .authorizeRequests()
-                .antMatchers("/api/v1/user/signup").permitAll()
-                .antMatchers("/api/v1/**").permitAll()
+                .antMatchers("/api/v1/**","/api/v1/user/signup").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

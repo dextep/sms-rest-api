@@ -8,6 +8,8 @@ import pl.popiel.sms.model.event.Event;
 import pl.popiel.sms.model.user.User;
 import pl.popiel.sms.repository.user.EventRepository;
 import pl.popiel.sms.repository.user.UserRepository;
+
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -51,7 +53,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<Event> getEvents(){
-        return eventRepository.findAll();
+        return eventRepository.getEventsBeforeExp();
     }
 
     @Override

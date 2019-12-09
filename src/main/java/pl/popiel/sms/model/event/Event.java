@@ -18,6 +18,7 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sms_event_seq")
     private long id;
 
+    @NotNull
     @ManyToOne
     private User user;
 
