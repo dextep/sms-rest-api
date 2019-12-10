@@ -10,9 +10,7 @@ import pl.popiel.sms.repository.user.EventRepository;
 import pl.popiel.sms.repository.user.UserRepository;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Component
 public class EventServiceImpl implements EventService {
@@ -34,7 +32,7 @@ public class EventServiceImpl implements EventService {
             newEvent.setPartner(event.getPartner());
             newEvent.setCreationDate(new Date());
             newEvent.setDescription(event.getDescription());
-            newEvent.setSeatsNumber(event.getSeatsNumber());
+            newEvent.setAvailability(event.getAvailability());
             newEvent.setExperience(event.getExperience());
             newEvent.setLatitude(event.getLatitude());
             newEvent.setLongitude(event.getLongitude());
@@ -62,6 +60,15 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public void joinEvent(Long eventId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByEmail(auth.getName());
+        Event event = eventRepository.findEventById(eventId);
+        event.setPartner(new HashSet<>(Arrays.asList(user)));
+        eventRepository.save(event);
+    }
+
+    @Override
     public Event updateEvent(Event event) {
         return null;
     }
@@ -75,4 +82,6 @@ public class EventServiceImpl implements EventService {
     public Event acceptEvent(Event event) {
         return null;
     }
+
+
 }

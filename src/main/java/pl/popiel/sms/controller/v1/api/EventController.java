@@ -21,6 +21,12 @@ public class EventController {
     @Autowired
     EventRepository eventRepository;
 
+    @PostMapping(value = "/event/join/{id}")
+    public Response joinEvent (@PathVariable Long id){
+        eventService.joinEvent(id);
+        return Response.ok();
+    }
+
     @PostMapping(value = "/event")
     public Response addEvent (@RequestBody Event event){
         eventService.addEvent(event);

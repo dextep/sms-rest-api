@@ -27,7 +27,7 @@ public class Event {
 
     private String type;
     private String description;
-    private int seatsNumber;
+    private int availability;
     @NotNull
     private double latitude;
     @NotNull
@@ -121,11 +121,11 @@ public class Event {
     }
 
 
-    public int getSeatsNumber() {
-        return seatsNumber;
+    public int getAvailability() {
+        return availability;
     }
 
-    public void setSeatsNumber(int seatsNumber) {
-        this.seatsNumber = seatsNumber;
+    public void setAvailability(int availability) {
+        this.availability = availability;
     }
 }

@@ -23,4 +23,5 @@ public interface EventService {
 
     Event acceptEvent(Event event);
 
+    void joinEvent(Long id);
 }
