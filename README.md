@@ -1,5 +1,5 @@
 # Sport meeting system - REST API
 
-## REST API with Spring Boot, Postgresql, JPA and Hibernate.
+REST API with Spring Boot, Postgresql, JPA and Hibernate.
 
-documentation soon
+## Documentation soon
