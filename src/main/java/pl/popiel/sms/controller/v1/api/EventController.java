@@ -2,10 +2,14 @@ package pl.popiel.sms.controller.v1.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import pl.popiel.sms.dto.response.Response;
 import pl.popiel.sms.model.event.Event;
+import pl.popiel.sms.model.user.User;
 import pl.popiel.sms.repository.user.EventRepository;
+import pl.popiel.sms.repository.user.UserRepository;
 import pl.popiel.sms.service.EventServiceImpl;
 
 import java.util.List;
@@ -20,6 +24,9 @@ public class EventController {
 
     @Autowired
     EventRepository eventRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @PostMapping(value = "/event/join/{id}")
     public Response joinEvent (@PathVariable Long id){
@@ -40,7 +47,12 @@ public class EventController {
 
     @GetMapping(value = "/event")
     public List<Event> getEvents (){
-        return eventService.getEvents();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByEmail(auth.getName());
+        List<Event> event = eventService.getEvents(user.getId());
+//        System.out.println(event.get(0).getUserExists());
+//        System.out.println(event.get(1).getUserExists());
+        return event;
     }
 
     @DeleteMapping(value = "/event/{id}")

@@ -2,6 +2,7 @@ package pl.popiel.sms.service;
 
 import org.springframework.stereotype.Service;
 import pl.popiel.sms.model.event.Event;
+import pl.popiel.sms.repository.user.EventRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +14,7 @@ public interface EventService {
 
     Optional<Event> getEvent(Long id);
 
-    List<Event> getEvents();
+    List<Event> getEvents(Long id);
 
     void deleteById(Long id);
 

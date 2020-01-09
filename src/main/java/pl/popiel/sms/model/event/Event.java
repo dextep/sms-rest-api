@@ -1,6 +1,11 @@
 package pl.popiel.sms.model.event;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.hibernate.annotations.Formula;
 import org.springframework.data.annotation.Reference;
+import org.springframework.data.repository.query.Param;
 import pl.popiel.sms.model.user.User;
 
 import javax.persistence.*;
@@ -36,9 +41,21 @@ public class Event {
     private Date creationDate;
     private Date experience;
     private boolean status;
+//    @Formula("select (CASE WHEN partners.partner_id =partners.user_id THEN true ELSE false END) from (select * from sms_events e left join sms_events_partner ep on (e.id = ep.event_id) where e.experience > current_timestamp) as partners")
+
+//    @Transient
+//    private boolean userExists;
 
     public Event() {
     }
+
+//    public boolean isUserExists() {
+//        return userExists;
+//    }
+//
+//    public void setUserExists(boolean userExists) {
+//        this.userExists = userExists;
+//    }
 
     public long getId() {
         return id;

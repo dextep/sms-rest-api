@@ -35,7 +35,6 @@ public class UserController {
     }
 
     private UserDto registerUser(UserSignupRequest userSignupRequest, boolean isAdmin) {
-        System.out.println(userSignupRequest);
         UserDto userDto = new UserDto();
         userDto.setEmail(userSignupRequest.getEmail());
         userDto.setPassword(userSignupRequest.getPassword());

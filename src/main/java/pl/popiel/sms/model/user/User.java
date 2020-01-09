@@ -1,5 +1,6 @@
 package pl.popiel.sms.model.user;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
