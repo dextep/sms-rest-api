@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import pl.popiel.sms.dto.model.event.EventDto;
 import pl.popiel.sms.dto.response.Response;
 import pl.popiel.sms.model.event.Event;
 import pl.popiel.sms.model.user.User;
@@ -34,6 +35,12 @@ public class EventController {
         return Response.ok();
     }
 
+    @PostMapping(value = "/event/leave/{id}")
+    public Response leaveEvent (@PathVariable Long id){
+        eventService.leaveEvent(id);
+        return Response.ok();
+    }
+
     @PostMapping(value = "/event")
     public Response addEvent (@RequestBody Event event){
         eventService.addEvent(event);
@@ -46,7 +53,7 @@ public class EventController {
     }
 
     @GetMapping(value = "/event")
-    public List<Event> getEvents (){
+    public List getEvents (){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByEmail(auth.getName());
         List<Event> event = eventService.getEvents(user.getId());

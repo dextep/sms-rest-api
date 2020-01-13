@@ -85,6 +85,18 @@ public class SmsApplication {
                 userRepository.save(user);
             }
 
+            User new1User = userRepository.findByEmail("user@gmail.com");
+            if ( new1User == null) {
+                User user1 = new User();
+                user1.setEmail("user1@gmail.com");
+                user1.setPassword("$2y$12$mnmbE42x8XCNa8/fScbQe.Ua0yzOUXXq28SQ96rTpSrIgLPvawiaG"); // "admin"
+                user1.setFirstName("Adam");
+                user1.setLastName("Janowiecki");
+                user1.setMobileNumber("99321932");
+                user1.setRoles(new HashSet<>(Arrays.asList(adminRole)));
+                userRepository.save(user1);
+            }
+
             Event event = new Event();
             event.setType("bieganie 🏃🏼‍♂️");
             event.setDescription("description test");

@@ -1,55 +1,47 @@
-package pl.popiel.sms.model.event;
+package pl.popiel.sms.dto.model.event;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.Formula;
 import org.springframework.data.annotation.Reference;
 import org.springframework.data.repository.query.Param;
-import pl.popiel.sms.dto.model.event.EventDto;
 import pl.popiel.sms.model.user.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 
-@Entity
-@Table(name="sms_events")
-@SequenceGenerator(name = "sms_events_seq", sequenceName = "sms_events_seq", allocationSize = 1)
-public class Event {
+//@JsonInclude(value = JsonInclude.Include.NON_NULL)
+//@JsonIgnoreProperties(ignoreUnknown = true)
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sms_event_seq")
+public class EventDto {
+
     private long id;
-
-    @NotNull
-    @ManyToOne
+    private int availability;
     private User user;
-
-    @ManyToMany
-    private Set<User> partner = new HashSet<>();
-
+    private Set<User> partner;
     private String type;
     private String description;
-    private int availability;
-    @NotNull
     private double latitude;
-    @NotNull
     private double longitude;
-    @NotNull
     private Date creationDate;
     private Date experience;
     private boolean status;
-//    @Formula("select (CASE WHEN partners.partner_id =partners.user_id THEN true ELSE false END) from (select * from sms_events e left join sms_events_partner ep on (e.id = ep.event_id) where e.experience > current_timestamp) as partners")
-
-    @Transient
     private boolean userExists;
 
-    public Event() {
+    public EventDto(long id, int availability, String description, Date experience, double latitude, double longitude, String type, boolean userExists) {
+        this.id = id;
+        this.availability = availability;
+        this.description = description;
+        this.experience = experience;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.type = type;
+        this.userExists = userExists;
     }
 
     public boolean isUserExists() {
@@ -87,7 +79,6 @@ public class Event {
     public void setPartner(Set<User> partner) {
         this.partner = partner;
     }
-
 
     public void setType(String type) {
         this.type = type;

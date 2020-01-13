@@ -1,6 +1,7 @@
 package pl.popiel.sms.service;
 
 import org.springframework.stereotype.Service;
+import pl.popiel.sms.dto.model.event.EventDto;
 import pl.popiel.sms.model.event.Event;
 import pl.popiel.sms.repository.user.EventRepository;
 
@@ -25,4 +26,6 @@ public interface EventService {
     Event acceptEvent(Event event);
 
     void joinEvent(Long id);
+
+    void leaveEvent(Long id);
 }

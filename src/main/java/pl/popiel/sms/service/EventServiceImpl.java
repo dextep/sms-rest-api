@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import pl.popiel.sms.dto.model.event.EventDto;
 import pl.popiel.sms.model.event.Event;
 import pl.popiel.sms.model.user.User;
 import pl.popiel.sms.repository.user.EventRepository;
 import pl.popiel.sms.repository.user.UserRepository;
 
-import java.time.LocalDate;
 import java.util.*;
 
 @Component
@@ -64,7 +64,16 @@ public class EventServiceImpl implements EventService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByEmail(auth.getName());
         Event event = eventRepository.findEventById(eventId);
-        event.setPartner(new HashSet<>(Arrays.asList(user)));
+        event.getPartner().add(user);
+        eventRepository.save(event);
+    }
+
+    @Override
+    public void leaveEvent(Long eventId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByEmail(auth.getName());
+        Event event = eventRepository.findEventById(eventId);
+        event.getPartner().remove(user);
         eventRepository.save(event);
     }
 
