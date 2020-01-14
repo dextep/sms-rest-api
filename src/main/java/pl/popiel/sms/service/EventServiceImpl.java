@@ -8,6 +8,7 @@ import pl.popiel.sms.dto.model.event.EventDto;
 import pl.popiel.sms.model.event.Event;
 import pl.popiel.sms.model.user.User;
 import pl.popiel.sms.repository.user.EventRepository;
+import pl.popiel.sms.repository.user.EventTypeRepository;
 import pl.popiel.sms.repository.user.UserRepository;
 
 import java.util.*;
@@ -21,23 +22,24 @@ public class EventServiceImpl implements EventService {
     @Autowired
     private EventRepository eventRepository;
 
+    @Autowired
+    private EventTypeRepository eventTypeRepository;
+
     @Override
-    public Event addEvent(Event event) {
+    public Event addEvent(EventDto event) {
         try{
             Event newEvent = new Event();
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             User user = userRepository.findByEmail(auth.getName());
 
             newEvent.setUser(user);
-            newEvent.setPartner(event.getPartner());
             newEvent.setCreationDate(new Date());
             newEvent.setDescription(event.getDescription());
             newEvent.setAvailability(event.getAvailability());
             newEvent.setExperience(event.getExperience());
             newEvent.setLatitude(event.getLatitude());
             newEvent.setLongitude(event.getLongitude());
-            newEvent.setStatus(event.isStatus());
-            newEvent.setType(event.getType());
+            newEvent.setType( eventTypeRepository.findByType(event.getType()));
             return eventRepository.save(newEvent);
         }catch ( Exception e){
             throw e;

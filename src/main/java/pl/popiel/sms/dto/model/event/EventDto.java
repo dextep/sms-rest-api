@@ -20,64 +20,26 @@ import java.util.Set;
 
 public class EventDto {
 
-    private long id;
-    private int availability;
-    private User user;
-    private Set<User> partner;
+    private Date experience;
     private String type;
     private String description;
+    private int availability;
     private double latitude;
     private double longitude;
-    private Date creationDate;
-    private Date experience;
-    private boolean status;
-    private boolean userExists;
 
-    public EventDto(long id, int availability, String description, Date experience, double latitude, double longitude, String type, boolean userExists) {
-        this.id = id;
-        this.availability = availability;
-        this.description = description;
+    public EventDto() {
+    }
+
+    public Date getExperience() {
+        return experience;
+    }
+
+    public void setExperience(Date experience) {
         this.experience = experience;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.type = type;
-        this.userExists = userExists;
-    }
-
-    public boolean isUserExists() {
-        return userExists;
-    }
-
-    public void setUserExists(boolean userExists) {
-        this.userExists = userExists;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getType() {
         return type;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Set<User> getPartner() {
-        return partner;
-    }
-
-    public void setPartner(Set<User> partner) {
-        this.partner = partner;
     }
 
     public void setType(String type) {
@@ -90,6 +52,14 @@ public class EventDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(int availability) {
+        this.availability = availability;
     }
 
     public double getLatitude() {
@@ -106,38 +76,5 @@ public class EventDto {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public Date getExperience() {
-        return experience;
-    }
-
-    public void setExperience(Date experience) {
-        this.experience = experience;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-
-    public int getAvailability() {
-        return availability;
-    }
-
-    public void setAvailability(int availability) {
-        this.availability = availability;
     }
 }

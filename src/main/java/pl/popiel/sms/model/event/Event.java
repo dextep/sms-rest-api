@@ -33,7 +33,9 @@ public class Event {
     @ManyToMany
     private Set<User> partner = new HashSet<>();
 
-    private String type;
+    @ManyToOne
+    private EventType type;
+
     private String description;
     private int availability;
     @NotNull
@@ -68,8 +70,12 @@ public class Event {
         this.id = id;
     }
 
-    public String getType() {
+    public EventType getType() {
         return type;
+    }
+
+    public void setType(EventType type) {
+        this.type = type;
     }
 
     public User getUser() {
@@ -87,12 +93,6 @@ public class Event {
     public void setPartner(Set<User> partner) {
         this.partner = partner;
     }
-
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getDescription() {
         return description;
     }

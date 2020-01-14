@@ -13,8 +13,10 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import pl.popiel.sms.model.event.Event;
+import pl.popiel.sms.model.event.EventType;
 import pl.popiel.sms.model.user.Role;
 import pl.popiel.sms.model.user.User;
+import pl.popiel.sms.repository.user.EventTypeRepository;
 import pl.popiel.sms.repository.user.EventRepository;
 import pl.popiel.sms.repository.user.RoleRepository;
 import pl.popiel.sms.repository.user.UserRepository;
@@ -43,7 +45,7 @@ public class SmsApplication {
     }
 
     @Bean
-    CommandLineRunner init(RoleRepository roleRepository, UserRepository userRepository, EventRepository eventRepository) {
+    CommandLineRunner init(RoleRepository roleRepository, UserRepository userRepository, EventRepository eventRepository, EventTypeRepository eventTypeRepository) {
         return args -> {
             //Create Admin and Passenger Roles
             Role adminRole = roleRepository.findByRole("ADMIN");
@@ -97,13 +99,38 @@ public class SmsApplication {
                 userRepository.save(user1);
             }
 
+            EventType eventType1 = eventTypeRepository.findByType("swim");
+            if (eventType1 == null) {
+
+                EventType eventType = new EventType();
+                eventType.setType("Walk");
+                eventType.setIcon("🚶🏻‍️");
+                eventTypeRepository.save(eventType);
+
+                eventType = new EventType();
+                eventType.setType("Run");
+                eventType.setIcon("🏃🏼‍‍");
+                eventTypeRepository.save(eventType);
+
+                eventType = new EventType();
+                eventType.setType("Cycle");
+                eventType.setIcon("🚴‍️");
+                eventTypeRepository.save(eventType);
+
+                eventType = new EventType();
+                eventType.setType("Swim");
+                eventType.setIcon("🏊🏼‍️");
+                eventTypeRepository.save(eventType);
+            }
+
             Event event = new Event();
-            event.setType("bieganie 🏃🏼‍♂️");
+            event.setType(eventTypeRepository.findByType("swim"));
             event.setDescription("description test");
             User eventUser = new User();
             eventUser.setId(2);
             event.setUser(eventUser);
             event.setCreationDate(new Date());
+            event.setExperience(new Date());
             event.setLongitude(19.914377);
             event.setLatitude(50.028783);
             eventRepository.save(event);

@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 public interface EventService {
 
-    Event addEvent(Event event);
+    Event addEvent(EventDto event);
 
     Optional<Event> getEvent(Long id);
 

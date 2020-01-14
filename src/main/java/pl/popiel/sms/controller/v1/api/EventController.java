@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import pl.popiel.sms.dto.model.event.EventDto;
 import pl.popiel.sms.dto.response.Response;
 import pl.popiel.sms.model.event.Event;
+import pl.popiel.sms.model.event.EventType;
 import pl.popiel.sms.model.user.User;
 import pl.popiel.sms.repository.user.EventRepository;
+import pl.popiel.sms.repository.user.EventTypeRepository;
 import pl.popiel.sms.repository.user.UserRepository;
 import pl.popiel.sms.service.EventServiceImpl;
 
@@ -22,6 +24,9 @@ public class EventController {
 
     @Autowired
     EventServiceImpl eventService;
+
+    @Autowired
+    EventTypeRepository eventTypeRepository;
 
     @Autowired
     EventRepository eventRepository;
@@ -42,7 +47,7 @@ public class EventController {
     }
 
     @PostMapping(value = "/event")
-    public Response addEvent (@RequestBody Event event){
+    public Response addEvent (@RequestBody EventDto event){
         eventService.addEvent(event);
         return Response.ok();
     }
@@ -57,9 +62,13 @@ public class EventController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByEmail(auth.getName());
         List<Event> event = eventService.getEvents(user.getId());
-//        System.out.println(event.get(0).getUserExists());
-//        System.out.println(event.get(1).getUserExists());
         return event;
+    }
+
+    @GetMapping(value = "/event/types")
+    public List getEvenTypes (){
+        List<EventType> eventTypes = eventTypeRepository.findAll();
+        return eventTypes;
     }
 
     @DeleteMapping(value = "/event/{id}")
