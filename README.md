@@ -28,6 +28,3 @@ Strona powstała w oparciu o architekture REST.
 ## Diagram wymagań funkcjonalnych
 
 ![Diagram wymagań funkcjonalnych](https://i.ibb.co/n8ts1hs/3.png)
-
-
-## Documentation soon
