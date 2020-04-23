@@ -35,6 +35,16 @@ public class SmsApplication {
     }
 
     @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("*").allowedOrigins("*").allowedMethods("GET", "POST","PUT", "DELETE");
+            }
+        };
+    }
+
+    @Bean
     CommandLineRunner init(RoleRepository roleRepository, UserRepository userRepository, EventRepository eventRepository, EventTypeRepository eventTypeRepository) {
         return args -> {
             //Create Admin and Passenger Roles
