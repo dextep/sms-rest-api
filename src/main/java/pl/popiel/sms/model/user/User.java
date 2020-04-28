@@ -100,7 +100,6 @@ public class User {
         this.roles = roles;
     }
 
-
     public Date getBirthday() {
         return birthday;
     }
@@ -108,7 +107,6 @@ public class User {
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
-
 
     public Date getCreationDate() {
         return creationDate;

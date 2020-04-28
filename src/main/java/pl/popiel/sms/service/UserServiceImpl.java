@@ -40,8 +40,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto signup(UserDto userDto) throws RuntimeException {
         Role userRole;
-        User user = userRepository.findByEmail(userDto.getEmail());
-        if ( user == null ) {
+        Optional<User> user = Optional.ofNullable(userRepository.findByEmail(userDto.getEmail()));
+        if (user.isPresent()) {
             if (userDto.isAdmin()) {
                 userRole = roleRepository.findByRole(UserRoles.ADMIN.name());
             } else {
@@ -55,6 +55,7 @@ public class UserServiceImpl implements UserService {
             newUser.setLastName(userDto.getLastName());
             newUser.setMobileNumber(userDto.getMobileNumber());
             newUser.setBirthday(userDto.getBirthday());
+
             return UserMapper.toUserDto(userRepository.save(newUser));
         }
         throw exception(USER, DUPLICATE_ENTITY, userDto.getEmail());
