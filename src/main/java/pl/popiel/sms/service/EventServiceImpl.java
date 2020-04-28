@@ -16,14 +16,16 @@ import java.util.*;
 @Component
 public class EventServiceImpl implements EventService {
 
-    @Autowired
     private UserRepository userRepository;
-
-    @Autowired
     private EventRepository eventRepository;
+    private EventTypeRepository eventTypeRepository;
 
     @Autowired
-    private EventTypeRepository eventTypeRepository;
+    public EventServiceImpl (EventTypeRepository eventTypeRepository, EventRepository eventRepository, UserRepository userRepository){
+        this.eventTypeRepository = eventTypeRepository;
+        this.eventRepository = eventRepository;
+        this.userRepository = userRepository;
+    }
 
     @Override
     public Event addEvent(EventDto event) {

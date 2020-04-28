@@ -22,17 +22,18 @@ import java.util.Optional;
 @RequestMapping("/api/v1/")
 public class EventController {
 
-    @Autowired
-    EventServiceImpl eventService;
-
-    @Autowired
-    EventTypeRepository eventTypeRepository;
-
-    @Autowired
-    EventRepository eventRepository;
-
-    @Autowired
+    private EventServiceImpl eventService;
+    private EventTypeRepository eventTypeRepository;
+    private EventRepository eventRepository;
     private UserRepository userRepository;
+
+    @Autowired
+    public EventController (UserRepository userRepository, EventRepository eventRepository, EventTypeRepository eventTypeRepository, EventServiceImpl eventService){
+        this.userRepository = userRepository;
+        this.eventRepository = eventRepository;
+        this.eventTypeRepository = eventTypeRepository;
+        this.eventService = eventService;
+    }
 
     @PostMapping(value = "/event/join/{id}")
     public Response joinEvent (@PathVariable Long id){

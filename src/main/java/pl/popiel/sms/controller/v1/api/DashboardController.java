@@ -20,11 +20,14 @@ import javax.validation.Valid;
 @RequestMapping("/")
 public class DashboardController {
 
-    @Autowired
-    UserService userService;
+    private UserService userService;
+    private UserRepository userRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    public DashboardController (UserService userService, UserRepository userRepository){
+        this.userService = userService;
+        this.userRepository = userRepository;
+    }
 
     @GetMapping(value = "/profile")
     public ProfileForm getUserProfile() {

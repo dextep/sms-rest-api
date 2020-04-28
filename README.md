@@ -1,9 +1,10 @@
 # 🏃 Sport meeting system - REST API
 
-Sport meeting system site for clients. 
+Sport meeting system server side. 
 Allows to organization spontaneous sport events in your neighbourhood.
 
 [Live preview](https://sport-meeting-system.herokuapp.com), hosted by [Heroku](https://www.heroku.com/).
+__*Please note due of hosting limits the first load can take a while.*__
 
 If your interested about frontend check my [sms-webapp](https://github.com/dextep/sms-webapp) repository.
 
@@ -70,6 +71,14 @@ $ mvn spring-boot:run
 
 ## Preview
 
+### Registration panel
+
+![registration panel](https://i.ibb.co/0KL2hvd/Screenshot-2020-04-26-at-16-11-01.png)
+
+### Login panel
+
+![login panel](https://i.ibb.co/GWb9MqX/Screenshot-2020-04-26-at-16-09-54.png)
+
 ### Adding a new event
 
 ![new event](https://i.ibb.co/5KnBxGy/3.png)
@@ -81,11 +90,3 @@ $ mvn spring-boot:run
 ### Preview of an active event
 
 ![active event](https://i.ibb.co/zXDFfms/5.png)
-
-### Registration panel
-
-![registration panel](https://i.ibb.co/y5xjJz4/1.png)
-
-### Login panel
-
-![login panel](https://i.ibb.co/5RVqfBL/2.png)

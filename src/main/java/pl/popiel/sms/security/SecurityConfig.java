@@ -28,12 +28,14 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired
     private CustomUserDetailsService userDetailsService;
 
+    @Autowired
+    public SecurityConfig (BCryptPasswordEncoder bCryptPasswordEncoder, CustomUserDetailsService userDetailsService){
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.userDetailsService = userDetailsService;
+    }
 
     @Override
     protected void configure (AuthenticationManagerBuilder auth) throws Exception{

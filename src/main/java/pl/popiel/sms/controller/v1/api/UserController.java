@@ -14,8 +14,12 @@ import java.text.SimpleDateFormat;
 @RequestMapping("/api/v1/user")
 public class UserController {
 
-    @Autowired
     private UserServiceImpl userService;
+
+    @Autowired
+    public UserController (UserServiceImpl userService){
+        this.userService = userService;
+    }
 
     @PostMapping("/signup")
     public Response signup(@RequestBody UserSignupRequest userSignupRequest) {

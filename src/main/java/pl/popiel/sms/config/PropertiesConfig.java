@@ -6,8 +6,13 @@ import org.springframework.core.env.Environment;
 
 @Configuration
 public class PropertiesConfig {
-    @Autowired
+
     private Environment env;
+
+    @Autowired
+    public PropertiesConfig(Environment env){
+        this.env = env;
+    }
 
     public String getConfigValue(String configKey) {
         return env.getProperty(configKey);
