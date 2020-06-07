@@ -3,7 +3,7 @@
 Sport meeting system server side. 
 Allows to organization spontaneous sport events in your neighbourhood.
 
-[Live preview](https://sport-meeting-system.herokuapp.com), hosted by [Heroku](https://www.heroku.com/).
+Live [preview](https://sportmeetingsystem.netlify.app), hosted by [Heroku](https://www.heroku.com/) and [Netfly](https://www.netlify.com/). 
 __*Please note due of hosting limits the first load can take a while.*__
 
 If your interested about frontend check my [sms-webapp](https://github.com/dextep/sms-webapp) repository.
