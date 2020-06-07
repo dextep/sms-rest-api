@@ -41,7 +41,7 @@ You can create your own user account or use existing one.
 Sample user credentials:
 
 - Login: **user@gmail.com**
-- Password: **admin1**
+- Password: **admin**
 
 ## Setup
 
