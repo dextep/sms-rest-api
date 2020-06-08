@@ -1,11 +1,9 @@
 package pl.popiel.sms.service;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.popiel.sms.dto.mapper.UserMapper;
 import pl.popiel.sms.dto.model.user.UserDto;
-import pl.popiel.sms.dto.response.ResponseError;
 import pl.popiel.sms.exception.BRSException;
 import pl.popiel.sms.exception.EntityType;
 import pl.popiel.sms.exception.ExceptionType;

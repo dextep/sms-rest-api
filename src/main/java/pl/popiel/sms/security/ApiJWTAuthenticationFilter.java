@@ -14,6 +14,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import pl.popiel.sms.model.user.User;
+import pl.popiel.sms.repository.user.UserRepository;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -22,7 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import static pl.popiel.sms.security.SecurityConstants.*;
@@ -59,9 +59,9 @@ public class ApiJWTAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
         if (auth.getPrincipal() != null) {
             org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) auth.getPrincipal();
-            String login = user.getUsername();
-            if (login != null && login.length() > 0) {
-                Claims claims = Jwts.claims().setSubject(login);
+            String email = user.getUsername();
+            if (email != null && email.length() > 0) {
+                Claims claims = Jwts.claims().setSubject(email);
                 List<String> roles = new ArrayList<>();
                 user.getAuthorities().stream().forEach(authority -> roles.add(authority.getAuthority()));
                 claims.put("roles", roles);

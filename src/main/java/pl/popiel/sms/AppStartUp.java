@@ -76,18 +76,6 @@ public class AppStartUp implements ApplicationListener<ApplicationReadyEvent> {
             userRepository.save(user);
         }
 
-        User new1User = userRepository.findByEmail("user@gmail.com");
-        if ( new1User == null) {
-            User user1 = new User();
-            user1.setEmail("user1@gmail.com");
-            user1.setPassword("$2y$12$mnmbE42x8XCNa8/fScbQe.Ua0yzOUXXq28SQ96rTpSrIgLPvawiaG"); // "admin"
-            user1.setFirstName("Adam");
-            user1.setLastName("Janowiecki");
-            user1.setMobileNumber("99321932");
-            user1.setRoles(new HashSet<>(Arrays.asList(adminRole)));
-            userRepository.save(user1);
-        }
-
         EventType eventType1 = eventTypeRepository.findByType("swim");
         if (eventType1 == null) {
 
@@ -112,17 +100,17 @@ public class AppStartUp implements ApplicationListener<ApplicationReadyEvent> {
             eventTypeRepository.save(eventType);
         }
 
-        Event event = new Event();
-        event.setType(eventTypeRepository.findByType("swim"));
-        event.setDescription("description test");
-        User eventUser = new User();
-        eventUser.setId(2);
-        event.setUser(eventUser);
-        event.setCreationDate(new Date());
-        event.setExperience(new Date());
-        event.setLongitude(19.914377);
-        event.setLatitude(50.028783);
-        eventRepository.save(event);
+//        Event event = new Event();
+//        event.setType(eventTypeRepository.findByType("swim"));
+//        event.setDescription("description test");
+//        User eventUser = new User();
+//        eventUser.setId(2);
+//        event.setUser(eventUser);
+//        event.setCreationDate(new Date());
+//        event.setExperience(new Date());
+//        event.setLongitude(19.914377);
+//        event.setLatitude(50.028783);
+//        eventRepository.save(event);
 
         return;
     }
