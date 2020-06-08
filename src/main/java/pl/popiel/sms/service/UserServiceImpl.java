@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
     public UserDto signup(UserDto userDto) throws RuntimeException {
         Role userRole;
         Optional<User> user = Optional.ofNullable(userRepository.findByEmail(userDto.getEmail()));
-        if (user.isPresent()) {
+        if (!user.isPresent()) {
             if (userDto.isAdmin()) {
                 userRole = roleRepository.findByRole(UserRoles.ADMIN.name());
             } else {
