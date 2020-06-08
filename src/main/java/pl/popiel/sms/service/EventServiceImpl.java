@@ -41,7 +41,7 @@ public class EventServiceImpl implements EventService {
             newEvent.setExperience(event.getExperience());
             newEvent.setLatitude(event.getLatitude());
             newEvent.setLongitude(event.getLongitude());
-            newEvent.setType( eventTypeRepository.findByType(event.getType()));
+            newEvent.setType(eventTypeRepository.findByType(event.getType()));
             return eventRepository.save(newEvent);
         }catch ( Exception e){
             throw e;

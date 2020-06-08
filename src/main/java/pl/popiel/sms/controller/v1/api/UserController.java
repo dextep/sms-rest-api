@@ -23,8 +23,12 @@ public class UserController {
 
     @PostMapping("/signup")
     public Response signup(@RequestBody UserSignupRequest userSignupRequest) {
-        registerUser(userSignupRequest, false);
-        return Response.ok();
+        try{
+            registerUser(userSignupRequest, false);
+            return Response.ok();
+        }catch (Exception e){
+            return Response.duplicateEntity();
+        }
     }
 
     @GetMapping("/{email}")
